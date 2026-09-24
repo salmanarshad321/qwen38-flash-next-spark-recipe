@@ -1,0 +1,5 @@
+registries:
+  - name: qwen38-flash-next-spark
+    description: Qwen3.8-Flash-Next NVFP4 on one DGX Spark
+    recipes: recipes
+    mods: recipes/mods

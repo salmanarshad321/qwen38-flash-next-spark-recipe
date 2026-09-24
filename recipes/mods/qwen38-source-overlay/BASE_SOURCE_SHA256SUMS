@@ -1,0 +1,17 @@
+# Installed Python source in the pinned public vLLM base before overlay
+eb1e6c33d22c5f07f744921f27edec66e4d5a17b2adb89608ae5913a1b64d7fd  /usr/local/lib/python3.12/dist-packages/vllm/config/speculative.py
+81b4dcd0952492375c93bffc2cdf45f10b45ab5e117f2e1d949a147d144e64f0  /usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
+3f3ca743fd3c66d72be92b7544591a8632f1aa422b73bb50c83e8a3281196e7d  /usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/modelopt.py
+25bb3393105f9a642b7fa58bc277865db9976748be320787f8db2e03b16fd667  /usr/local/lib/python3.12/dist-packages/vllm/model_executor/model_loader/weight_utils.py
+46fcbdd4567864fce21a6f18a225d461bc49a459886bd09a11bea476d14f73e6  /usr/local/lib/python3.12/dist-packages/vllm/models/qwen3_8_flash_next/nvidia/low_latency_gemm.py
+f127380fcd884c1fb7b010a2c32065d55c319f65a1268c18ef21376e39ba8425  /usr/local/lib/python3.12/dist-packages/vllm/models/qwen3_8_flash_next/nvidia/model_state.py
+7735cee47d0d1e4776bebd30d907e4a62160409ce4ef2d65611559f8d58af431  /usr/local/lib/python3.12/dist-packages/vllm/models/qwen3_8_flash_next/nvidia/mtp.py
+c4ffe3674cafa0ce2dabc39a39f0ddbb4b594bc358ad210ffce9d04383350c7f  /usr/local/lib/python3.12/dist-packages/vllm/models/qwen3_8_flash_next/nvidia/ops/qsa.py
+a71144c1d36e06f22a2da1b1ada900076597fe5e824a911e7ada86249a0993e7  /usr/local/lib/python3.12/dist-packages/vllm/models/qwen3_8_flash_next/nvidia/ple_layer.py
+748addc85efaa8f7df940d1245bc900192f92e1f17af8fa774625758600751cb  /usr/local/lib/python3.12/dist-packages/vllm/models/qwen3_8_flash_next/nvidia/qsa.py
+1b3ad391f939d9443c6b7adb19e57fe381bd5dccea064e8417a4f85b0e713b26  /usr/local/lib/python3.12/dist-packages/vllm/third_party/flash_linear_attention/ops/chunk_delta_h.py
+d6c90d36505e02086954c23ca4dd2fea82a69416d68ff1d0501e16b3148b5b0c  /usr/local/lib/python3.12/dist-packages/vllm/third_party/flash_linear_attention/ops/utils.py
+985fd9f320eff615f2bc4b4d5576cd7f301a751380709979a251f92101bda14d  /usr/local/lib/python3.12/dist-packages/vllm/v1/attention/backends/short_conv_attn.py
+c710f49e41e974e5b7b8f1cd2f5fb9722523f4da0165252e16351199ebd03124  /usr/local/lib/python3.12/dist-packages/vllm/v1/core/sched/scheduler.py
+2e65f1da0a440f11a784bd36afe9206a7a2f674d522c047b838ad604e4c6acc0  /usr/local/lib/python3.12/dist-packages/vllm/v1/worker/gpu/model_states/mamba_hybrid.py
+25254d005f42b64dd55d15a5c646018f5599d971c23e7ca395eb5acaf4f41ed3  /usr/local/lib/python3.12/dist-packages/vllm/v1/worker/mamba_utils.py

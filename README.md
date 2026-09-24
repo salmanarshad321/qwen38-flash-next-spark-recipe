@@ -2,7 +2,16 @@
 
 This repository records the Qwen3.8-Flash-Next deployment running on my single DGX Spark on **2026-09-24**. It combines the [blazux single-Spark vLLM recipe](https://github.com/blazux/qwen3.8-Flash-DGX) with credited community and vLLM changes, plus locally developed scheduling, PLE caching, integration, and measurement work. [NOTICE.md](NOTICE.md) maps the sources file by file.
 
-The exact image is a chain of local images built between August 30 and September 19. Its first local ancestor is not published as an image or a complete build context. **Cloning this repository alone does not rebuild the image byte for byte.** The repository publishes the as-run configuration, retained source overlays, image lineage, and raw benchmark results so the measured setup is inspectable. See [reproduction notes](docs/REPRODUCE.md) before applying any overlay to a different vLLM build.
+The exact historical image is a chain of local images built between August 30 and September 19. Its first local ancestor is not published as an image or a complete build context, so cloning this repository does not rebuild that image byte for byte. A [portable SparkRun recipe](docs/SPARKRUN.md) now applies the captured serving source to the digest-pinned public vLLM base at startup. An [optional image build](image/Dockerfile) uses the same source. The original benchmark figures describe the historical image; the packaged runtime needs its own matched run. See [reproduction notes](docs/REPRODUCE.md).
+
+## SparkRun
+
+```sh
+sparkrun registry add https://github.com/salmanarshad321/qwen38-flash-next-spark-recipe.git
+sparkrun run @qwen38-flash-next-spark/qwen38-flash-next-nvfp4 -H YOUR_SPARK_HOST --tp 1 --dry-run --trust
+```
+
+Then remove `--dry-run` to start it on an idle Spark. The recipe pulls the public vLLM base, applies the bundled mod, and downloads the pinned model; no GHCR login is needed. Read the [setup and limitations](docs/SPARKRUN.md) before launch.
 
 ## Running configuration
 
@@ -39,6 +48,10 @@ This is a fast, usable single-Spark configuration for my workload. It is **not e
 
 ## Contents
 
+- [`docs/SPARKRUN.md`](docs/SPARKRUN.md): install and run the portable single-Spark recipe.
+- [`recipes/qwen38-flash-next-nvfp4.yaml`](recipes/qwen38-flash-next-nvfp4.yaml): pinned SparkRun v2 launch configuration.
+- [`recipes/mods/qwen38-source-overlay/`](recipes/mods/qwen38-source-overlay/): captured runtime source, kernel build, and hash checks.
+- [`image/`](image/): optional container build and attribution map.
 - [`docs/AS_RUN.md`](docs/AS_RUN.md): live image, checkpoint, environment, and image lineage.
 - [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md): measurement protocol, results, and limits.
 - [`docs/REPRODUCE.md`](docs/REPRODUCE.md): public starting point and version pins.

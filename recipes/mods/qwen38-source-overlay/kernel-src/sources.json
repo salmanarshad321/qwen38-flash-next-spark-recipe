@@ -1,0 +1,10 @@
+{
+  "base": "https://raw.githubusercontent.com/jschmied/qwen38-flash-next-gb10/3f4b6c1df8e3dbc30850241337e7a66f7fd84c93/",
+  "sha256": {
+    "patches/kernel-det/build_det.py": "138cacfc5eb117f0922d53c88727e4d0dc26dcfb246c3d401fc280cfc726cc71",
+    "patches/kernel-det/bindings_det.cpp": "b103fbeaf7589b9468471142ad0b30012a076f93d20ba11fc5ff6dcb1ecd32a6",
+    "patches/kernel-det/topk_det.cu": "19e1d53425ea9a839445722fd1dac1c41727128eebdce84508c1bfb8592afecf",
+    "patches/kernel-det/torch_utils.h": "16939700ae389750782ff5c0d5b9caef59aa0ff8b869b64ec94fa72c814910ee",
+    "patches/kernel-det/persistent_topk.cuh": "b4ef9ce298d43d6c0e6db9fcca451df20815b2cfe33791919c1ad9c0e84f0ba7"
+  }
+}
