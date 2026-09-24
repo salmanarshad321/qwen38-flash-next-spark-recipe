@@ -1,0 +1,19 @@
+# Attribution and source map
+
+The deployment is a derivative, layered configuration. The file descriptions below distinguish upstream implementation from local integration and changes. Names and links credit authorship of specific code and ideas; they do not imply endorsement.
+
+| Component in this deployment | Origin and credit | Included here |
+| --- | --- | --- |
+| Single-Spark vLLM base, NVMe PLE mmap, model launch | [blazux/qwen3.8-Flash-DGX](https://github.com/blazux/qwen3.8-Flash-DGX), Apache-2.0; the historical checkout on this Spark is commit `d2854bfff0a0b6f46984b0941ed1db6010031295` | The locally modified `source/ple_cache/vllm_ple_mmap.py` and configuration notes; not the full upstream tree |
+| Fast PLE gather implementation in that mmap file | [Saren-Arterius/qwen3.8-Flash-DGX-AutoRound](https://github.com/Saren-Arterius/qwen3.8-Flash-DGX-AutoRound), credited in the source header | Adapted within the mmap file |
+| Reduced MTP draft-vocabulary technique, patch base, and exact 47,149-row token list | [MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark](https://github.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark), AGPL-3.0-or-later. The token list is byte-identical to `files/draft_vocab_en_code_47k.txt` at commit `d03809008834124e80223c3482f2ddb59577a48f` (SHA256 `20e36b6e8eae2598019298959a578ef8adc2948bbed7189e43a8da9b9d84a0b1`). | `source/draft_vocab/patch_mtp.py` (adapted), `source/draft_vocab/draft_vocab_en_code_47k.txt` (verbatim) |
+| Deterministic QSA top-k kernel used by the image | [jschmied/qwen38-flash-next-gb10](https://github.com/jschmied/qwen38-flash-next-gb10), Apache-2.0; image label pins commit `3f4b6c1df8e3dbc30850241337e7a66f7fd84c93` | Credited in configuration notes; compiled kernel binary is not distributed here |
+| Staged PLE design and earlier implementation | [pangoleen/qwen3.8-flash-next-dgx-spark](https://github.com/pangoleen/qwen3.8-flash-next-dgx-spark), MIT; local staged PLE README cites commit `5ac0ac951e66b1239eb65967ba609d0b12349cdf`. The local version adapts it to the pinned vLLM and mmap path. | `source/ple_staging/` (adapted) |
+| Four-query QSA scorer | [lovablelabs/vllm PR #1](https://github.com/lovablelabs/vllm/pull/1), Apache-2.0; two helper functions were copied from commit `6b4ffca2808d92f304059fcd1a81691c18633e2b`. | `source/qsa_packed/qsa_ops.candidate.py` (adapted) |
+| Model code and additional fixes | [vLLM](https://github.com/vllm-project/vllm), Apache-2.0, including PRs [#55054](https://github.com/vllm-project/vllm/pull/55054), [#55309](https://github.com/vllm-project/vllm/pull/55309), and [#55715](https://github.com/vllm-project/vllm/pull/55715) | vLLM-derived files in `source/`; full vLLM wheel is not included |
+| PLE raw-row cache, adaptive scheduler integration, and workload/measurement campaign | Local work on this Spark, September 2026 | `source/ple_cache/ple_row_cache.py`, `source/adaptive_scheduler.py`, `bench/`, `data/` |
+| Model checkpoint | [RadixArk/Qwen3.8-Flash-Next-NVFP4](https://huggingface.co/RadixArk/Qwen3.8-Flash-Next-NVFP4), based on Qwen's model | Referenced by snapshot ID; no weights distributed |
+
+The local image also descends from additional experiments and selective code replacements between August 30 and September 19. [`docs/AS_RUN.md`](docs/AS_RUN.md) lists each retained image layer and its source reference. This repository does not claim that every layer was invented here. Agent identity or authorship of the local changes is not established by the files, so no individual agent is credited as their author.
+
+The full text of the Apache-2.0 license used by blazux, vLLM, and jschmied, and the MIT notice from pangoleen's pinned commit, are preserved in [`THIRD_PARTY_LICENSES/`](THIRD_PARTY_LICENSES/). The top-level [`LICENSE`](LICENSE) contains the AGPL-3.0-or-later terms applicable to MiaAI-derived material and this combined repository.

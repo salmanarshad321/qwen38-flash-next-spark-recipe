@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+*.key
+*api-key*
+*credential*
+*secret*
+bench/results/
+.DS_Store

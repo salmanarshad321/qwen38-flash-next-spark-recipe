@@ -1,0 +1,1493 @@
+{
+  "label": "recheck-20260924-a",
+  "repeats": 3,
+  "started": 1790239735.1582026,
+  "requests": [
+    {
+      "name": "code-merge_intervals-0",
+      "seconds": 5.177978310995968,
+      "ttft": 0.20603908800694626,
+      "completion_tokens": 245,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 49.075418877166506,
+      "end_to_end_tps": 47.31576404631077,
+      "p95_stream_gap": 0.07479683100245893,
+      "max_stream_gap": 0.07810421199246775,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] pairs with start <= end.\n    \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, extend the current interval\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add the current interval and start a new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 330,
+        "completion_tokens": 245,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81555.992478931,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "code-is_balanced-0",
+      "seconds": 2.732380618006573,
+      "ttft": 0.22503874999529216,
+      "completion_tokens": 128,
+      "prompt_tokens": 68,
+      "decode_tps_approx": 50.65125008291395,
+      "end_to_end_tps": 46.845596530904714,
+      "p95_stream_gap": 0.07530937599949539,
+      "max_stream_gap": 0.07667982800921891,
+      "finish_reason": "stop",
+      "content": "```python\ndef is_balanced(text):\n    \"\"\"Return whether parentheses, square brackets, and curly braces are properly nested and matched.\"\"\"\n    stack = []\n    matching = {')': '(', ']': '[', '}': '{'}\n    opening = set('([{')\n    closing = set(')]}')\n    for char in text:\n        if char in opening:\n            stack.append(char)\n        elif char in closing:\n            if not stack or stack[-1] != matching[char]:\n                return False\n            stack.pop()\n    return len(stack) == 0\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 196,
+        "completion_tokens": 128,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81558.750090499,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "code-dedupe_records-0",
+      "seconds": 3.746956410992425,
+      "ttft": 0.2437768249947112,
+      "completion_tokens": 163,
+      "prompt_tokens": 86,
+      "decode_tps_approx": 46.243704047465215,
+      "end_to_end_tps": 43.50197390121962,
+      "p95_stream_gap": 0.07376361399656162,
+      "max_stream_gap": 0.07634019599936437,
+      "finish_reason": "stop",
+      "content": "```python\ndef dedupe_records(records):\n    \"\"\"Deduplicate records by id, keeping the last occurrence of each id while preserving first-appearance order.\"\"\"\n    if not records:\n        return []\n    \n    # Track the last index for each id\n    last_index = {}\n    for i, record in enumerate(records):\n        last_index[record['id']] = i\n    \n    # Build result preserving order of first appearance of each id\n    seen = set()\n    result = []\n    for record in records:\n        rid = record['id']\n        if rid not in seen:\n            seen.add(rid)\n            # Find the last occurrence of this id\n            result.append(records[last_index[rid]])\n    \n    return result\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 86,
+        "total_tokens": 249,
+        "completion_tokens": 163,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81562.515050293,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "code-merge_intervals-1",
+      "seconds": 5.18969877899508,
+      "ttft": 0.23836761798884254,
+      "completion_tokens": 245,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 49.27967693245809,
+      "end_to_end_tps": 47.208905648169655,
+      "p95_stream_gap": 0.07479704299475998,
+      "max_stream_gap": 0.07640450100007001,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] pairs with start <= end.\n    \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, extend the current interval\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add the current interval and start a new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 330,
+        "completion_tokens": 245,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81567.727507985,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "code-is_balanced-1",
+      "seconds": 2.7268624040007126,
+      "ttft": 0.22783398600586224,
+      "completion_tokens": 128,
+      "prompt_tokens": 68,
+      "decode_tps_approx": 50.81975022192873,
+      "end_to_end_tps": 46.94039560346168,
+      "p95_stream_gap": 0.07364715299627278,
+      "max_stream_gap": 0.07766052299120929,
+      "finish_reason": "stop",
+      "content": "```python\ndef is_balanced(text):\n    \"\"\"Return whether parentheses, square brackets, and curly braces are properly nested and matched.\"\"\"\n    stack = []\n    matching = {')': '(', ']': '[', '}': '{'}\n    opening = set('([{')\n    closing = set(')]}')\n    for char in text:\n        if char in opening:\n            stack.append(char)\n        elif char in closing:\n            if not stack or stack[-1] != matching[char]:\n                return False\n            stack.pop()\n    return len(stack) == 0\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 68,
+        "total_tokens": 196,
+        "completion_tokens": 128,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81570.477334231,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "code-dedupe_records-1",
+      "seconds": 3.732971228004317,
+      "ttft": 0.23993841500487179,
+      "completion_tokens": 163,
+      "prompt_tokens": 86,
+      "decode_tps_approx": 46.37803555612512,
+      "end_to_end_tps": 43.66494945827413,
+      "p95_stream_gap": 0.07433042000047863,
+      "max_stream_gap": 0.0756913670047652,
+      "finish_reason": "stop",
+      "content": "```python\ndef dedupe_records(records):\n    \"\"\"Deduplicate records by id, keeping the last occurrence of each id while preserving first-appearance order.\"\"\"\n    if not records:\n        return []\n    \n    # Track the last index for each id\n    last_index = {}\n    for i, record in enumerate(records):\n        last_index[record['id']] = i\n    \n    # Build result preserving order of first appearance of each id\n    seen = set()\n    result = []\n    for record in records:\n        rid = record['id']\n        if rid not in seen:\n            seen.add(rid)\n            # Find the last occurrence of this id\n            result.append(records[last_index[rid]])\n    \n    return result\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 86,
+        "total_tokens": 249,
+        "completion_tokens": 163,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81574.234490297,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "reasoning",
+      "seconds": 8.200715971004684,
+      "ttft": 0.2612517950037727,
+      "completion_tokens": 383,
+      "prompt_tokens": 72,
+      "decode_tps_approx": 48.1140781710048,
+      "end_to_end_tps": 46.703239248155306,
+      "p95_stream_gap": 0.08768374999635853,
+      "max_stream_gap": 0.09116374100267421,
+      "finish_reason": "stop",
+      "content": "\n\n83,810,205",
+      "reasoning": "We need answer compute 12345 * 6789 exact integer. Need calculate. Let's do carefully.\n\n12345 * 6789.\nCompute 6789*12345 = 6789*(12000+345) = 6789*12000 + 6789*345.\n6789*12000 = 6789*12*1000 = (6789*10=67890 + *2=13578 =>81468)*1000=81,468,000.\n6789*345 = 6789*(300+40+5)=2,036,700 + 271,560 + 33,945 = 2,342,205.\nSum = 83,810,205.\nCheck alternative: 12345*6789 = 12345*(7000-211)=86,415,000 - 12345*211. 12345*211=12345*200=2,469,000 + *11=135,795 =>2,604,795. Difference 83,810,205. Good.\nFinal concise.\n",
+      "usage": {
+        "prompt_tokens": 72,
+        "total_tokens": 455,
+        "completion_tokens": 383,
+        "completion_tokens_details": {
+          "reasoning_tokens": 370
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "cold-0",
+      "seconds": 7.7930925539985765,
+      "ttft": 7.654974044999108,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.44095547703225,
+      "end_to_end_tps": 0.8982313441675158,
+      "p95_stream_gap": 0.06243315098981839,
+      "max_stream_gap": 0.07557295700826216,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "cold-1",
+      "seconds": 7.761430568003561,
+      "ttft": 7.6221647710044635,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.083083781431775,
+      "end_to_end_tps": 0.9018955898230214,
+      "p95_stream_gap": 0.060372556996298954,
+      "max_stream_gap": 0.0787578309973469,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "cold-2",
+      "seconds": 7.766981221007882,
+      "ttft": 7.62812388400198,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.20981612764886,
+      "end_to_end_tps": 0.9012510524766848,
+      "p95_stream_gap": 0.06029614299768582,
+      "max_stream_gap": 0.07842522600549273,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "shared-populate",
+      "seconds": 7.772824481013231,
+      "ttft": 7.633676579003804,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.11958652163889,
+      "end_to_end_tps": 0.9005735324525829,
+      "p95_stream_gap": 0.062251461000414565,
+      "max_stream_gap": 0.07676845700189006,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "warm-0",
+      "seconds": 0.7346508410118986,
+      "ttft": 0.5827939000009792,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 39.510870955635575,
+      "end_to_end_tps": 9.528335923985727,
+      "p95_stream_gap": 0.07450939500995446,
+      "max_stream_gap": 0.07721004199993331,
+      "finish_reason": "stop",
+      "content": "value_0429",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "warm-1",
+      "seconds": 0.7363639990071533,
+      "ttft": 0.5825621719995979,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 39.01124009213008,
+      "end_to_end_tps": 9.506168157919408,
+      "p95_stream_gap": 0.07287163200089708,
+      "max_stream_gap": 0.08074000300257467,
+      "finish_reason": "stop",
+      "content": "value_0430",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "warm-2",
+      "seconds": 0.7362223529926268,
+      "ttft": 0.5836542409961112,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 39.326697574503825,
+      "end_to_end_tps": 9.507997103790876,
+      "p95_stream_gap": 0.07035161000385415,
+      "max_stream_gap": 0.08200981399568263,
+      "finish_reason": "stop",
+      "content": "value_0431",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "repeat-0",
+      "seconds": 0.7195174040098209,
+      "ttft": 0.5819571360043483,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.61724564073472,
+      "end_to_end_tps": 9.7287431283656,
+      "p95_stream_gap": 0.06277914400561713,
+      "max_stream_gap": 0.0746630119974725,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "repeat-1",
+      "seconds": 0.7158305009943433,
+      "ttft": 0.5789567299943883,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.83601004170457,
+      "end_to_end_tps": 9.778851264756762,
+      "p95_stream_gap": 0.06188573299732525,
+      "max_stream_gap": 0.0748121340002399,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "repeat-2",
+      "seconds": 0.7225396869907854,
+      "ttft": 0.5850701699964702,
+      "completion_tokens": 7,
+      "prompt_tokens": 20027,
+      "decode_tps_approx": 43.64603972710633,
+      "end_to_end_tps": 9.688049149456992,
+      "p95_stream_gap": 0.06263557600323111,
+      "max_stream_gap": 0.07467621300020255,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 20027,
+        "total_tokens": 20034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "concurrent-0-1-0",
+      "seconds": 5.250805748000857,
+      "ttft": 0.2595610299904365,
+      "completion_tokens": 245,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 48.88560144517654,
+      "end_to_end_tps": 46.65950556127105,
+      "p95_stream_gap": 0.07493901600537356,
+      "max_stream_gap": 0.0771078849938931,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] pairs with start <= end.\n    \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, extend the current interval\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add the current interval and start a new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 330,
+        "completion_tokens": 245,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81623.1810803,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-4-1",
+      "seconds": 5.677386145995115,
+      "ttft": 0.30424605699954554,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 43.7360642208623,
+      "end_to_end_tps": 41.56842496374441,
+      "p95_stream_gap": 0.09658282999589574,
+      "max_stream_gap": 0.10311993499635719,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81628.886740468,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-4-0",
+      "seconds": 5.678235796993249,
+      "ttft": 0.3053723649936728,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 43.73831625802964,
+      "end_to_end_tps": 41.562204958971094,
+      "p95_stream_gap": 0.09624954899481963,
+      "max_stream_gap": 0.1029523190081818,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81628.887061445,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-4-2",
+      "seconds": 5.67853054900479,
+      "ttft": 0.3047861219965853,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 43.73114560843278,
+      "end_to_end_tps": 41.56004761502268,
+      "p95_stream_gap": 0.09632772600161843,
+      "max_stream_gap": 0.10296231901156716,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81628.88823572,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-4-3",
+      "seconds": 5.678279205007129,
+      "ttft": 0.303776120999828,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 43.724972583843204,
+      "end_to_end_tps": 41.561887233705285,
+      "p95_stream_gap": 0.09613050900225062,
+      "max_stream_gap": 0.10347515299508814,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81628.888300312,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-3",
+      "seconds": 9.625984546000836,
+      "ttft": 0.7327501510008005,
+      "completion_tokens": 242,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 27.099252003916064,
+      "end_to_end_tps": 25.140285530641133,
+      "p95_stream_gap": 0.15480002100230195,
+      "max_stream_gap": 0.1658760970021831,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 327,
+        "completion_tokens": 242,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.590780056,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-7",
+      "seconds": 9.625494544990943,
+      "ttft": 0.7311202439886983,
+      "completion_tokens": 233,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.08390339204159,
+      "end_to_end_tps": 24.206548443918862,
+      "p95_stream_gap": 0.1546439880039543,
+      "max_stream_gap": 0.16662102699046955,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        # If overlapping or touching (next_start <= current_end)\n        if next_start <= current_end:\n            current_end = max(current_end, next_end)\n        else:\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 318,
+        "completion_tokens": 233,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.591670586,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-0",
+      "seconds": 9.628031768006622,
+      "ttft": 0.7326699749974068,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.98035286081493,
+      "end_to_end_tps": 25.031076528105018,
+      "p95_stream_gap": 0.15415625700552482,
+      "max_stream_gap": 0.16401314799441025,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort intervals by start time\n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        if next_start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, next_end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.591786507,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-2",
+      "seconds": 9.764769952002098,
+      "ttft": 0.7322625819942914,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.57069517561795,
+      "end_to_end_tps": 24.680560953777217,
+      "p95_stream_gap": 0.1549822429951746,
+      "max_stream_gap": 0.16489958300371654,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.729266101,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-1",
+      "seconds": 9.765845873989747,
+      "ttft": 0.5954369149985723,
+      "completion_tokens": 248,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.934458550818235,
+      "end_to_end_tps": 25.394625637142262,
+      "p95_stream_gap": 0.1540564980095951,
+      "max_stream_gap": 0.1641771959984908,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        if next_start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, next_end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 333,
+        "completion_tokens": 248,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.729804038,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-6",
+      "seconds": 9.764234702990507,
+      "ttft": 0.7303225619980367,
+      "completion_tokens": 242,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.67725745377059,
+      "end_to_end_tps": 24.784328455960026,
+      "p95_stream_gap": 0.15448304198798724,
+      "max_stream_gap": 0.16594524899846874,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 327,
+        "completion_tokens": 242,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.730099927,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-4",
+      "seconds": 9.880293188005453,
+      "ttft": 0.7325514469994232,
+      "completion_tokens": 242,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.34529994650853,
+      "end_to_end_tps": 24.49320029225295,
+      "p95_stream_gap": 0.15536635598982684,
+      "max_stream_gap": 0.16410665299918037,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 327,
+        "completion_tokens": 242,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81638.845307082,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-0-8-5",
+      "seconds": 10.574613370990846,
+      "ttft": 0.7315797810006188,
+      "completion_tokens": 262,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 26.51621551565376,
+      "end_to_end_tps": 24.776319550248527,
+      "p95_stream_gap": 0.15546517400071025,
+      "max_stream_gap": 0.16553361600381322,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        # If overlapping or touching (next_start <= current_end)\n        if next_start <= current_end:\n            # Extend the current interval\n            if next_end > current_end:\n                current_end = next_end\n        else:\n            # No overlap, push current and start new\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    # Append the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 347,
+        "completion_tokens": 262,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81639.540078402,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-1-0",
+      "seconds": 5.156349381009932,
+      "ttft": 0.20386934700945858,
+      "completion_tokens": 245,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 49.26824506607929,
+      "end_to_end_tps": 47.51423573086389,
+      "p95_stream_gap": 0.07384535600431263,
+      "max_stream_gap": 0.07610484999895561,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] pairs with start <= end.\n    \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, extend the current interval\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add the current interval and start a new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 330,
+        "completion_tokens": 245,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81644.832146302,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-4-0",
+      "seconds": 5.582038801003364,
+      "ttft": 0.30548130700481124,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 44.53661317388925,
+      "end_to_end_tps": 42.27845925355791,
+      "p95_stream_gap": 0.08482796201133169,
+      "max_stream_gap": 0.08817940999870189,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81650.437347578,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-4-1",
+      "seconds": 5.582241280993912,
+      "ttft": 0.3060496440011775,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 44.53970139226078,
+      "end_to_end_tps": 42.276925722203906,
+      "p95_stream_gap": 0.08480055400286801,
+      "max_stream_gap": 0.08706767900730483,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81650.437861531,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-4-2",
+      "seconds": 5.582631555007538,
+      "ttft": 0.3055949069967028,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 44.532569257138405,
+      "end_to_end_tps": 42.27397020108044,
+      "p95_stream_gap": 0.08481282400316559,
+      "max_stream_gap": 0.0878514579962939,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81650.438405533,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-4-3",
+      "seconds": 5.582375762009178,
+      "ttft": 0.30495639400032815,
+      "completion_tokens": 236,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 44.52933974217489,
+      "end_to_end_tps": 42.27590725907354,
+      "p95_stream_gap": 0.08484506601234898,
+      "max_stream_gap": 0.08741736100637354,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n\n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n\n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n\n    merged = []\n    current_start, current_end = sorted_intervals[0]\n\n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n\n    # Add the last interval\n    merged.append([current_start, current_end])\n\n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 321,
+        "completion_tokens": 236,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81650.438488557,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-3",
+      "seconds": 9.040409927009023,
+      "ttft": 0.5670915720111225,
+      "completion_tokens": 242,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 28.442221795885743,
+      "end_to_end_tps": 26.76869765352162,
+      "p95_stream_gap": 0.1421046580071561,
+      "max_stream_gap": 0.15017861600790638,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 327,
+        "completion_tokens": 242,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.556072634,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-6",
+      "seconds": 9.039155538994237,
+      "ttft": 0.5662899859889876,
+      "completion_tokens": 233,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 27.381527365049678,
+      "end_to_end_tps": 25.77674418753561,
+      "p95_stream_gap": 0.14229581000108737,
+      "max_stream_gap": 0.149957686997368,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        # If overlapping or touching (next_start <= current_end)\n        if next_start <= current_end:\n            current_end = max(current_end, next_end)\n        else:\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 318,
+        "completion_tokens": 233,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.556377211,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-2",
+      "seconds": 9.041282695994596,
+      "ttft": 0.567582596995635,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 28.3229282599171,
+      "end_to_end_tps": 26.655509854455286,
+      "p95_stream_gap": 0.14148968100198545,
+      "max_stream_gap": 0.15217705299437512,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort intervals by start time\n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        if next_start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, next_end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.556760748,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-4",
+      "seconds": 9.177484780011582,
+      "ttft": 0.5667759380012285,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 27.872269798402204,
+      "end_to_end_tps": 26.259918243056553,
+      "p95_stream_gap": 0.1418376969959354,
+      "max_stream_gap": 0.151545579006779,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.693275952,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-5",
+      "seconds": 9.177172762996634,
+      "ttft": 0.5663611210038653,
+      "completion_tokens": 242,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 27.988070116956624,
+      "end_to_end_tps": 26.369777081648778,
+      "p95_stream_gap": 0.14152750399080105,
+      "max_stream_gap": 0.15167527600715403,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 327,
+        "completion_tokens": 242,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.694093698,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-0",
+      "seconds": 9.179136704013217,
+      "ttft": 0.4285680950124515,
+      "completion_tokens": 248,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 28.226737145508206,
+      "end_to_end_tps": 27.01779132361889,
+      "p95_stream_gap": 0.1419415380078135,
+      "max_stream_gap": 0.15262849399005063,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        if next_start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, next_end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 333,
+        "completion_tokens": 248,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.694149906,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-1",
+      "seconds": 9.294206524995388,
+      "ttft": 0.5682068869937211,
+      "completion_tokens": 242,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 27.61861219320325,
+      "end_to_end_tps": 26.03772568956553,
+      "p95_stream_gap": 0.14200662598886993,
+      "max_stream_gap": 0.15217690900317393,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 327,
+        "completion_tokens": 242,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81659.809446624,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "concurrent-1-8-7",
+      "seconds": 9.962957361989538,
+      "ttft": 0.5653220319945831,
+      "completion_tokens": 262,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 27.772944026350096,
+      "end_to_end_tps": 26.297412553382674,
+      "p95_stream_gap": 0.1422875540010864,
+      "max_stream_gap": 0.15083596100157592,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: A list of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        next_start, next_end = sorted_intervals[i]\n        # If overlapping or touching (next_start <= current_end)\n        if next_start <= current_end:\n            # Extend the current interval\n            if next_end > current_end:\n                current_end = next_end\n        else:\n            # No overlap, push current and start new\n            merged.append([current_start, current_end])\n            current_start, current_end = next_start, next_end\n    \n    # Append the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 347,
+        "completion_tokens": 262,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81660.480613258,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "mixed-code-0",
+      "seconds": 14.098285116997431,
+      "ttft": 0.20569234600407071,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 17.275393006631642,
+      "end_to_end_tps": 17.094277637316413,
+      "p95_stream_gap": 1.3323524399893358,
+      "max_stream_gap": 1.3649452599929646,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81674.698327471,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "mixed-prefill-0",
+      "seconds": 9.965939083995181,
+      "ttft": 9.784526314004324,
+      "completion_tokens": 7,
+      "prompt_tokens": 22027,
+      "decode_tps_approx": 33.07374668443904,
+      "end_to_end_tps": 0.7023924128978134,
+      "p95_stream_gap": 0.08700045499426778,
+      "max_stream_gap": 0.09404141799313948,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 22027,
+        "total_tokens": 22034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "mixed-code-1",
+      "seconds": 14.04707068100106,
+      "ttft": 0.23205106898967642,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 17.37239661906332,
+      "end_to_end_tps": 17.156601933096077,
+      "p95_stream_gap": 1.3305343209940474,
+      "max_stream_gap": 1.3622395889979089,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81688.779964356,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "mixed-prefill-1",
+      "seconds": 9.907278343001963,
+      "ttft": 9.723134177998872,
+      "completion_tokens": 7,
+      "prompt_tokens": 22027,
+      "decode_tps_approx": 32.58316656354174,
+      "end_to_end_tps": 0.7065512603614768,
+      "p95_stream_gap": 0.0867600119963754,
+      "max_stream_gap": 0.09722419999889098,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 22027,
+        "total_tokens": 22034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    },
+    {
+      "name": "mixed-code-2",
+      "seconds": 14.05279986000096,
+      "ttft": 0.23229239501233678,
+      "completion_tokens": 241,
+      "prompt_tokens": 85,
+      "decode_tps_approx": 17.3654983804314,
+      "end_to_end_tps": 17.14960736656955,
+      "p95_stream_gap": 1.3331596689968137,
+      "max_stream_gap": 1.3712824109970825,
+      "finish_reason": "stop",
+      "content": "```python\ndef merge_intervals(intervals):\n    \"\"\"Merge overlapping or touching closed intervals.\n    \n    Args:\n        intervals: List of [start, end] integer pairs with start <= end.\n        \n    Returns:\n        A new list of merged intervals sorted by start.\n    \"\"\"\n    if not intervals:\n        return []\n    \n    # Sort by start, then by end\n    sorted_intervals = sorted(intervals, key=lambda x: (x[0], x[1]))\n    \n    merged = []\n    current_start, current_end = sorted_intervals[0]\n    \n    for i in range(1, len(sorted_intervals)):\n        start, end = sorted_intervals[i]\n        if start <= current_end:\n            # Overlapping or touching, merge\n            current_end = max(current_end, end)\n        else:\n            # No overlap, add current interval and start new one\n            merged.append([current_start, current_end])\n            current_start, current_end = start, end\n    \n    # Add the last interval\n    merged.append([current_start, current_end])\n    \n    return merged\n```",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 85,
+        "total_tokens": 326,
+        "completion_tokens": 241,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "_stream_finished_at": 81702.864614463,
+      "quality": {
+        "pass": true,
+        "detail": ""
+      }
+    },
+    {
+      "name": "mixed-prefill-2",
+      "seconds": 9.91557932899741,
+      "ttft": 9.736171871001716,
+      "completion_tokens": 7,
+      "prompt_tokens": 22027,
+      "decode_tps_approx": 33.44342574735106,
+      "end_to_end_tps": 0.7059597596611421,
+      "p95_stream_gap": 0.08491350000258535,
+      "max_stream_gap": 0.09424770099576563,
+      "finish_reason": "stop",
+      "content": "value_0173",
+      "reasoning": "",
+      "usage": {
+        "prompt_tokens": 22027,
+        "total_tokens": 22034,
+        "completion_tokens": 7,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "quality": {
+        "pass": true
+      }
+    }
+  ],
+  "concurrency": [
+    {
+      "repeat": 0,
+      "concurrency": 1,
+      "seconds": 5.251995494996663,
+      "tokens": 245,
+      "aggregate_tps": 46.64893567281243,
+      "median_request_tps": 48.88560144517654,
+      "max_ttft": 0.2595610299904365,
+      "all_pass": true
+    },
+    {
+      "repeat": 0,
+      "concurrency": 4,
+      "seconds": 5.679951433005044,
+      "tokens": 944,
+      "aggregate_tps": 166.19860418429067,
+      "median_request_tps": 43.73360491464754,
+      "max_ttft": 0.3053723649936728,
+      "all_pass": true
+    },
+    {
+      "repeat": 0,
+      "concurrency": 8,
+      "seconds": 10.576528318997589,
+      "tokens": 1951,
+      "aggregate_tps": 184.46506652807884,
+      "median_request_tps": 26.623976314694268,
+      "max_ttft": 0.7327501510008005,
+      "all_pass": true
+    },
+    {
+      "repeat": 1,
+      "concurrency": 1,
+      "seconds": 5.156572181993397,
+      "tokens": 245,
+      "aggregate_tps": 47.51218277435018,
+      "median_request_tps": 49.26824506607929,
+      "max_ttft": 0.20386934700945858,
+      "all_pass": true
+    },
+    {
+      "repeat": 1,
+      "concurrency": 4,
+      "seconds": 5.583496164006647,
+      "tokens": 944,
+      "aggregate_tps": 169.0696961673199,
+      "median_request_tps": 44.53459121551383,
+      "max_ttft": 0.3060496440011775,
+      "all_pass": true
+    },
+    {
+      "repeat": 1,
+      "concurrency": 8,
+      "seconds": 9.965745337001863,
+      "tokens": 1951,
+      "aggregate_tps": 195.7706056120181,
+      "median_request_tps": 27.930169957679414,
+      "max_ttft": 0.5682068869937211,
+      "all_pass": true
+    }
+  ],
+  "mixed": [
+    {
+      "repeat": 0,
+      "prefill_launch_after_code_start": 0.20601292300852947,
+      "code_seconds": 14.098285116997431,
+      "code_max_stream_gap": 1.3649452599929646,
+      "code_p95_stream_gap": 1.3323524399893358,
+      "prefill_ttft": 9.784526314004324,
+      "prefill_tokens": 22027,
+      "all_pass": true
+    },
+    {
+      "repeat": 1,
+      "prefill_launch_after_code_start": 0.2324660779995611,
+      "code_seconds": 14.04707068100106,
+      "code_max_stream_gap": 1.3622395889979089,
+      "code_p95_stream_gap": 1.3305343209940474,
+      "prefill_ttft": 9.723134177998872,
+      "prefill_tokens": 22027,
+      "all_pass": true
+    },
+    {
+      "repeat": 2,
+      "prefill_launch_after_code_start": 0.2327076919900719,
+      "code_seconds": 14.05279986000096,
+      "code_max_stream_gap": 1.3712824109970825,
+      "code_p95_stream_gap": 1.3331596689968137,
+      "prefill_ttft": 9.736171871001716,
+      "prefill_tokens": 22027,
+      "all_pass": true
+    }
+  ],
+  "prefill": {
+    "cold": [
+      7.654974044999108,
+      7.6221647710044635,
+      7.62812388400198
+    ],
+    "warm": [
+      0.5827939000009792,
+      0.5825621719995979,
+      0.5836542409961112
+    ],
+    "repeated": [
+      0.5819571360043483,
+      0.5789567299943883,
+      0.5850701699964702
+    ],
+    "prompt_tokens": 20027
+  },
+  "metric_delta": {
+    "python_gc_objects_collected_total": 1625.0,
+    "python_gc_objects_uncollectable_total": 0.0,
+    "python_gc_collections_total": 11.0,
+    "process_cpu_seconds_total": 2.299999999999997,
+    "vllm:spec_decode_num_drafts_total": 2358.0,
+    "vllm:spec_decode_num_draft_tokens_total": 7074.0,
+    "vllm:spec_decode_num_accepted_tokens_total": 6213.0,
+    "vllm:spec_decode_num_accepted_tokens_per_pos_total": 6213.0,
+    "vllm:estimated_flops_per_gpu_total": 0.0,
+    "vllm:estimated_read_bytes_per_gpu_total": 0.0,
+    "vllm:estimated_write_bytes_per_gpu_total": 0.0,
+    "vllm:prefix_cache_queries_total": 269366.0,
+    "vllm:prefix_cache_hits_total": 115200.0,
+    "vllm:external_prefix_cache_queries_total": 0.0,
+    "vllm:external_prefix_cache_hits_total": 0.0,
+    "vllm:mm_cache_queries_total": 0.0,
+    "vllm:mm_cache_hits_total": 0.0,
+    "vllm:num_preemptions_total": 0.0,
+    "vllm:prompt_tokens_total": 269366.0,
+    "vllm:prompt_tokens_by_source_total": 269366.0,
+    "vllm:prompt_tokens_cached_total": 115200.0,
+    "vllm:generation_tokens_total": 8549.0,
+    "vllm:request_success_total": 49.0,
+    "vllm:request_prompt_tokens_count": 49.0,
+    "vllm:request_prompt_tokens_sum": 269366.0,
+    "vllm:request_generation_tokens_count": 49.0,
+    "vllm:request_generation_tokens_sum": 8549.0,
+    "vllm:iteration_tokens_total_count": 1074.0,
+    "vllm:iteration_tokens_total_sum": 162715.0,
+    "vllm:request_max_num_generation_tokens_count": 49.0,
+    "vllm:request_max_num_generation_tokens_sum": 8549.0,
+    "vllm:request_params_n_count": 49.0,
+    "vllm:request_params_n_sum": 49.0,
+    "vllm:request_params_max_tokens_count": 49.0,
+    "vllm:request_params_max_tokens_sum": 18848.0,
+    "vllm:time_to_first_token_seconds_count": 49.0,
+    "vllm:time_to_first_token_seconds_sum": 78.20701169967651,
+    "vllm:inter_token_latency_seconds_count": 2358.0,
+    "vllm:inter_token_latency_seconds_sum": 268.4316782020469,
+    "vllm:request_time_per_output_token_seconds_count": 49.0,
+    "vllm:request_time_per_output_token_seconds_sum": 1.4700980466340172,
+    "vllm:e2e_request_latency_seconds_count": 49.0,
+    "vllm:e2e_request_latency_seconds_sum": 346.63246965408325,
+    "vllm:request_queue_time_seconds_count": 49.0,
+    "vllm:request_queue_time_seconds_sum": 0.0014484010607702658,
+    "vllm:request_inference_time_seconds_count": 49.0,
+    "vllm:request_inference_time_seconds_sum": 343.81334010399587,
+    "vllm:request_prefill_time_seconds_count": 49.0,
+    "vllm:request_prefill_time_seconds_sum": 75.38166190194897,
+    "vllm:request_decode_time_seconds_count": 49.0,
+    "vllm:request_decode_time_seconds_sum": 268.4316782020469,
+    "vllm:request_prefill_kv_computed_tokens_count": 49.0,
+    "vllm:request_prefill_kv_computed_tokens_sum": 154166.0,
+    "http_requests_total": 49.0,
+    "http_request_size_bytes_count": 49.0,
+    "http_request_size_bytes_sum": 665505.0,
+    "http_response_size_bytes_count": 49.0,
+    "http_response_size_bytes_sum": 0.0,
+    "http_request_duration_highr_seconds_count": 49.0,
+    "http_request_duration_highr_seconds_sum": 346.79366642893,
+    "http_request_duration_seconds_count": 49.0,
+    "http_request_duration_seconds_sum": 346.79366642893,
+    "vllm:tool_call_parser_invocations_total": 0.0
+  },
+  "traffic_clean": true,
+  "all_pass": true,
+  "summary": {
+    "all_pass": true,
+    "traffic_clean": true,
+    "requests": 49,
+    "tokens": 8549,
+    "code_tps": 49.1775479048123,
+    "cold_ttft": 7.62812388400198,
+    "warm_ttft": 0.5827939000009792,
+    "mixed_max_gap_median": 1.3649452599929646,
+    "mixed_prefill_ttft": 9.736171871001716,
+    "preemptions": 0.0
+  }
+}
